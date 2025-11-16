@@ -68,7 +68,12 @@ export default function CartPage() {
                   <h3 className="text-sm sm:text-base font-semibold text-gray-900 line-clamp-2 mb-1">
                     {item.title}
                   </h3>
-                  <p className="text-xs sm:text-sm text-gray-600 font-medium">₹ {formatPrice(item.price)}</p>
+                  {/* <p className="text-xs sm:text-sm text-gray-600 font-medium">₹ {formatPrice(item.price)}</p> */}
+                  {item.quantity > 1 && (
+                      <p className="text-xs text-gray-500 mt-0.5">
+                        ₹ {formatPrice(item.price)} × {item.quantity}
+                      </p>
+                    )}
                 </div>
 
                 <div>
@@ -76,11 +81,6 @@ export default function CartPage() {
                     <p className="text-base sm:text-lg font-bold text-gray-900">
                       ₹ {formatPrice(item.price * item.quantity)}
                     </p>
-                    {item.quantity > 1 && (
-                      <p className="text-xs text-gray-500 mt-0.5">
-                        ₹ {formatPrice(item.price)} × {item.quantity}
-                      </p>
-                    )}
                   </div>
   
                   <div className="flex items-center gap-1 mt-2 sm:gap-1 shrink-0">
