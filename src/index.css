@@ -1,0 +1,58 @@
+@import "tailwindcss";
+
+
+/* @keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.3s ease-in-out;
+} */
+
+/* Custom toast position - responsive */
+.Toastify__toast-container {
+  top: 10% !important;
+  width: 90% !important;
+  max-width: 400px !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  padding: 0 16px !important;
+}
+
+@media (min-width: 640px) {
+  .Toastify__toast-container {
+    width: auto !important;
+    max-width: 400px !important;
+    left: auto !important;
+    right: 1rem !important;
+    transform: none !important;
+    padding: 0 !important;
+  }
+}
+
+.Toastify__toast {
+  margin-bottom: 0.75rem !important;
+  border-radius: 0.5rem !important;
+  font-size: 0.875rem !important;
+  padding: 0.75rem 1rem !important;
+}
+
+@media (min-width: 640px) {
+  .Toastify__toast {
+    font-size: 0.875rem !important;
+    padding: 1rem !important;
+  }
+}
+/* 
+.Toastify__toast-container--top-right {
+  top: 20% !important;
+}
+
+.Toastify__toast-container--top-left {
+  top: 20% !important;
+}
+
+.Toastify__toast-container--top-center {
+  top: 20% !important;
+} */
