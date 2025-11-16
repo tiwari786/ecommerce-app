@@ -3,11 +3,12 @@ import type { Product } from "../types";
 
 interface productCardProps {
     product: Product;
+    index?: number;
 }
 
-export default function ProductCard({ product }: productCardProps) {
+export default function ProductCard({ product, index = 0 }: productCardProps) {
     return (
-        <article className="group">
+        <article className="group" data-aos="fade-up" data-aos-delay={index * 50}>
             <Link
                 to={`/product/${product.id}`}
                 data-testid="product-card"

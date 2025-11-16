@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import type { Product } from "../types";
 import { getProductById } from "../utils/api";
 import { FiArrowLeft } from "react-icons/fi";
+import AOS from "aos";
 
 
 export default function ProductDetails() {
@@ -23,9 +24,13 @@ export default function ProductDetails() {
     }
   }, [id])
 
+  useEffect(() => {
+    AOS.refresh();
+  }, [product])
+
   if (loading) {
     return (
-      <main className="min-h-screen bg-gray-50 w-full flex justify-center items-center">
+      <main className="min-h-screen bg-gray-50 w-full flex justify-center items-center" data-aos="fade-in">
         <div role="status" aria-live="polite" className="text-center">
           <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mb-4"></div>
           <h2 className="text-lg font-semibold text-gray-700">Loading product...</h2>
@@ -36,12 +41,14 @@ export default function ProductDetails() {
 
   if (!product) {
     return (
-      <main className="min-h-screen bg-gray-50 w-full flex justify-center items-center">
+      <main className="min-h-screen bg-gray-50 w-full flex justify-center items-center" data-aos="fade-in">
         <div className="text-center">
-          <h2 className="text-2xl font-semibold text-gray-700 mb-4">Product Not Found</h2>
+          <h2 className="text-2xl font-semibold text-gray-700 mb-4" data-aos="fade-up">Product Not Found</h2>
           <Link
             to="/"
             className="inline-flex items-center text-blue-600 hover:text-blue-700 font-medium"
+            data-aos="fade-up"
+            data-aos-delay="100"
           >
             <FiArrowLeft className="w-5 h-5 mr-2" />
             Back to Products
@@ -52,21 +59,22 @@ export default function ProductDetails() {
   }
 
   return (
-    <main className="bg-gray-50 min-h-screen">
+    <main className="bg-gray-50 min-h-screen" data-aos="fade-in">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6 lg:py-8">
 
         <Link
           to="/"
           className="inline-flex items-center text-blue-600 hover:text-blue-700 mb-4 sm:mb-6 font-medium text-sm sm:text-base"
+          data-aos="fade-right"
         >
           <FiArrowLeft className="w-4 h-4 sm:w-5 sm:h-5 mr-2" />
           Back to Products
         </Link>
 
-        <article className="bg-white rounded-xl shadow-sm overflow-hidden">
+        <article className="bg-white rounded-xl shadow-sm overflow-hidden" data-aos="zoom-in">
           <section className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 lg:gap-8 p-4 sm:p-6 lg:p-8">
 
-            <figure className="bg-gray-50 rounded-lg p-4 sm:p-6 lg:p-8 flex items-center justify-center min-h-[250px] sm:min-h-[300px] md:min-h-[400px]">
+            <figure className="bg-gray-50 rounded-lg p-4 sm:p-6 lg:p-8 flex items-center justify-center min-h-[250px] sm:min-h-[300px] md:min-h-[400px]" data-aos="fade-right">
               <img
                 src={product.image}
                 alt={product.title}
@@ -74,7 +82,7 @@ export default function ProductDetails() {
               />
             </figure>
 
-            <div className="flex flex-col">
+            <div className="flex flex-col" data-aos="fade-left">
 
               <span className="inline-block w-fit bg-blue-100 text-blue-800 text-xs font-semibold px-2 sm:px-3 py-1 rounded-full uppercase mb-3 sm:mb-4">
                 {product.category}

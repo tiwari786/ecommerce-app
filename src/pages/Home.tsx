@@ -4,6 +4,7 @@ import type { Product } from "../types"
 import { getProductsByMultipleCategories, sortProducts, type SortOption } from "../utils/api"
 import ProductCard from "../components/Product"
 import ProductFilters from "../components/ProductFilters"
+import AOS from "aos"
 
 export default function Home() {
   const [products, setProducts] = useState<Product[]>([])
@@ -24,15 +25,19 @@ export default function Home() {
     })
   }, [categories.join(","), sortOption])
 
+  useEffect(() => {
+    AOS.refresh()
+  }, [products])
+
   return (
-    <main className="min-h-screen bg-gray-50">
+    <main className="min-h-screen bg-gray-50" data-aos="fade-in">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="mb-8">
+        <div className="mb-8" data-aos="fade-down">
           <h1 className="text-4xl font-bold text-gray-900 mb-2">Our Products</h1>
           <p className="text-gray-600">Discover Amazing Deals on Fashion, Electronics & More!</p>
         </div>
         
-        <aside aria-label="Product filters">
+        <aside aria-label="Product filters" data-aos="fade-down" data-aos-delay="100">
           <ProductFilters />
         </aside>
 
@@ -46,8 +51,8 @@ export default function Home() {
         ) : (
           <section
             aria-label="Product list" className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
-            {products.map(prod => (
-              <ProductCard key={prod.id} product={prod} />
+            {products.map((prod, index) => (
+              <ProductCard key={prod.id} product={prod} index={index} />
             ))}
           </section>
         )
