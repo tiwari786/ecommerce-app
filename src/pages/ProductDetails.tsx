@@ -1,4 +1,4 @@
-import { Link, useParams } from "react-router-dom"
+import { Link, useParams, useNavigate } from "react-router-dom"
 import { useCartContext } from "../context/CartContext";
 import { useEffect, useState } from "react";
 import type { Product } from "../types";
@@ -10,6 +10,7 @@ import AOS from "aos";
 export default function ProductDetails() {
   const { id } = useParams();
   const { addToCart, isInCart } = useCartContext();
+  const navigate = useNavigate();
 
   const [product, setProduct] = useState<Product | null>(null)
   const [loading, setLoading] = useState(true)
@@ -111,7 +112,7 @@ export default function ProductDetails() {
                 </p>
               </div>
 
-              <div className="mt-auto space-y-3 sm:space-y-4">
+              <div className="mt-auto flex gap-2 ">
 
                 {isInCart(product.id) ? (
                   <button
@@ -128,6 +129,18 @@ export default function ProductDetails() {
                     Add to Cart
                   </button>
                 )}
+                
+                <button
+                  onClick={() => {
+                    if (!isInCart(product.id)) {
+                      addToCart(product);
+                    }
+                    navigate("/cart");
+                  }}
+                  className="w-full cursor-pointer bg-green-600 text-white py-3 sm:py-4 rounded-lg font-semibold text-base sm:text-lg hover:bg-green-700 transition-colors shadow-md hover:shadow-lg active:scale-[0.98]"
+                >
+                  Buy Now
+                </button>
 
               </div>
             </div>
