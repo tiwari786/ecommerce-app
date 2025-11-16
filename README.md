@@ -1,73 +1,155 @@
-# React + TypeScript + Vite
+# 🛍️ E-Commerce React App (Assignment Project)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A fully responsive e-commerce web application built using **React**, **TypeScript**, **Vite**, **Context API**, and **Cypress** for testing.  
+This project includes product listing, product details, cart management, sorting, filtering, accessibility, and complete E2E testing.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Live Demo  
+🔗 https://ecommerce-app-kappa-gules.vercel.app/
 
-## React Compiler
+---
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 📦 Features
 
-## Expanding the ESLint configuration
+### 🏠 Home Page
+- Responsive product grid  
+- Category filters  
+- Sorting functionality  
+- URL-based filters  
+- Accessible UI (`main`, `section`, `aside`, ARIA labels`)
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### 🛒 Cart
+- Add to cart  
+- Increase/decrease quantity  
+- Remove product  
+- Clear cart  
+- Persistent cart using `localStorage`  
+- Total price calculation  
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+### 📄 Product Details Page
+- Dynamic routing (`/product/:id`)  
+- Product info display  
+- Add to cart  
+- Accessible image + alt text + ARIA labels  
+- Back navigation  
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+### 🧪 Testing (Cypress)
+- Home page tests  
+- Product details tests  
+- Cart tests  
+- Product card tests  
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+### 🔧 Tech Stack
+- React + TypeScript  
+- Vite  
+- React Router  
+- Context API  
+- Tailwind CSS  
+- Cypress  
+- FakeStore API  
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## 📁 Folder Structure
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+```md
+src/
+  components/
+    Navbar.tsx
+    Footer.tsx
+    Product.tsx
+    ProductFilters.tsx
+    ProductSort.tsx
+
+  context/
+    CartContext.tsx
+
+  layout/
+    Layout.tsx
+
+  pages/
+    Home.tsx
+    ProductDetails.tsx
+    Cart.tsx
+
+  types/
+    index.ts
+
+  utils/
+    api.ts
+
+  App.tsx
+  main.tsx
+
+cypress/
+  e2e/
+    home.cy.ts
+    cart.cy.ts
+    product-details.cy.ts
+  fixtures/
+  support/
+
+---
+
+## 🛠️ Installation & Setup
+
+Clone the repository:
+
+
+git clone https://github.com/tiwari786/ecommerce-app.git
+cd ecommerce-app
+
+Install dependencies: 
+npm install
+
+Running the App (Development): 
+npm run dev
+
+Runs the app at:
+👉 http://localhost:5173/
+
+
+## 🏗️ Build for Production
+npm run build
+
+
+## 🧪 Run Cypress Tests
+
+Open Cypress UI:
+npx cypress open
+
+Available test files:
+home.cy.ts
+product-details.cy.ts
+cart.cy.ts
+
+
+
+## 🌐 Deployment (Vercel)
+
+Push project to GitHub
+
+Go to https://vercel.com
+
+Import your repository
+
+Framework: Vite (Auto-detected)
+
+Build command: npm run build
+
+Output directory: dist 
+
+Deploy 🚀 
+
+
+
+## 👤 Author
+
+Vipul Kumar Tiwari
+E-commerce React Application with full functionality & Cypress E2E testing.
+
+
+---
+
+# 🎉 DONE!  
