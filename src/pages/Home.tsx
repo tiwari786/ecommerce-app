@@ -32,15 +32,13 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-gray-50" data-aos="fade-in">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6 lg:py-8">
-        {/* Header */}
+   
         <div className="mb-4 sm:mb-6 lg:mb-8" data-aos="fade-down">
           <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-2">Our Products</h1>
           <p className="text-sm sm:text-base text-gray-600">Discover Amazing Deals on Fashion, Electronics & More!</p>
         </div>
         
-        {/* Main Layout: Sidebar + Products */}
         <div className="flex flex-col lg:flex-row gap-4 lg:gap-6">
-          {/* Filters Sidebar - Left Side */}
           <aside 
             aria-label="Product filters" 
             className="w-full lg:w-64 xl:w-72 shrink-0"
@@ -50,7 +48,7 @@ export default function Home() {
             <ProductFilters />
           </aside>
 
-          {/* Products Section - Right Side */}
+       
           <div className="flex-1 min-w-0">
             {loading ? (
               <div className="min-h-[400px] w-full flex justify-center items-center">
