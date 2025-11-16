@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import { getCategories, type SortOption } from "../utils/api";
-import { FiX, FiChevronDown } from "react-icons/fi";
+import { FiX, FiChevronDown, FiFilter } from "react-icons/fi";
 
 const sortOptions: { value: SortOption; label: string }[] = [
   { value: "default", label: "Default" },
@@ -15,6 +15,7 @@ export default function ProductFilters() {
   const [searchParams, setSearchParams] = useSearchParams();
   const [categories, setCategories] = useState<string[]>([]);
   const [loading, setLoading] = useState(true);
+  const [isMobileFilterOpen, setIsMobileFilterOpen] = useState(false);
 
   const selectedCategories = searchParams.get("categories")?.split(",").filter(Boolean) || [];
   const currentSort = (searchParams.get("sort") as SortOption) || "default";
@@ -62,32 +63,62 @@ export default function ProductFilters() {
   }
 
   return (
-    <div className="mb-4 sm:mb-6 bg-white rounded-xl shadow-sm p-3 sm:p-4">
-      <div className="flex flex-row justify-between gap-2 sm:gap-4 mb-3 sm:mb-4">
-        <div className="flex w-[60%] items-center gap-2">
-          <h3 className="text-base sm:text-lg font-semibold text-gray-900">Filter by Category</h3>
+    <>
+  
+      <button
+        onClick={() => setIsMobileFilterOpen(!isMobileFilterOpen)}
+        className="lg:hidden w-full mb-4 bg-white rounded-xl shadow-sm p-4 flex items-center justify-between hover:shadow-md transition-shadow"
+        aria-label="Toggle filters"
+        aria-expanded={isMobileFilterOpen}
+      >
+        <div className="flex items-center gap-2">
+          <FiFilter className="w-5 h-5 text-gray-700" />
+          <span className="font-semibold text-gray-900">Filters</span>
           {selectedCategories.length > 0 && (
-            <button
-              onClick={clearFilters}
-              className="text-xs sm:text-sm cursor-pointer text-blue-600 hover:text-blue-700 font-medium flex items-center gap-1.5 active:scale-95 transition-transform touch-manipulation"
-              aria-label="Clear all filters"
-            >
-              <FiX className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-              <span className="hidden sm:inline">Clear Filters</span>
-              <span className="sm:hidden">Clear</span>
-            </button>
+            <span className="bg-blue-600 text-white text-xs font-medium px-2 py-0.5 rounded-full">
+              {selectedCategories.length}
+            </span>
           )}
         </div>
-        
-        <div className="flex items-center gap-2">
-          <label className="text-xs sm:text-sm font-medium text-gray-700 whitespace-nowrap">
-            Sort:
+        <FiChevronDown
+          className={`w-5 h-5 text-gray-700 transition-transform ${
+            isMobileFilterOpen ? "transform rotate-180" : ""
+          }`}
+        />
+      </button>
+
+      <div
+        className={`bg-white rounded-xl shadow-sm p-4 sm:p-5 lg:p-6 sticky top-4 lg:top-16 h-fit transition-all duration-300 ${
+          isMobileFilterOpen ? "block" : "hidden lg:block"
+        }`}
+      >
+      
+        <div className="mb-4 sm:mb-5">
+          <div className="flex items-center justify-between mb-3">
+            <h3 className="text-base sm:text-lg hidden lg:block font-semibold text-gray-900">Filters</h3>
+            {selectedCategories.length > 0 && (
+              <button
+                onClick={clearFilters}
+                className="text-xs sm:text-sm cursor-pointer text-blue-600 hover:text-blue-700 font-medium flex items-center gap-1 active:scale-95 transition-transform"
+                aria-label="Clear all filters"
+              >
+                <FiX className="w-4 h-4" />
+                <span className="hidden sm:inline">Clear</span>
+              </button>
+            )}
+          </div>
+        </div>
+
+   
+        <div className="mb-4 sm:mb-5 pb-4 sm:pb-5 border-b border-gray-200">
+          <label className="block text-sm font-medium text-gray-700 mb-2">
+            Sort By
           </label>
-          <div className="relative flex-1 min-w-0">
+          <div className="relative">
             <select
               value={currentSort}
               onChange={(e) => handleSortChange(e.target.value as SortOption)}
-              className="appearance-none bg-white border border-gray-300 rounded-lg px-3 sm:px-4 py-2.5 sm:py-2 pr-8 sm:pr-10 text-xs sm:text-sm font-medium text-gray-700 hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent cursor-pointer w-full touch-manipulation"
+              className="appearance-none bg-white border border-gray-300 rounded-lg px-3 py-2.5 pr-10 text-sm font-medium text-gray-700 hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent cursor-pointer w-full"
               aria-label="Sort products"
             >
               {sortOptions.map((option) => (
@@ -96,38 +127,47 @@ export default function ProductFilters() {
                 </option>
               ))}
             </select>
-            <FiChevronDown className="absolute right-2.5 sm:right-3 top-1/2 transform -translate-y-1/2 text-gray-500 pointer-events-none w-3.5 h-3.5 sm:w-4 sm:h-4" />
+            <FiChevronDown className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 pointer-events-none w-4 h-4" />
           </div>
         </div>
-      </div>
 
-      <div className="flex flex-wrap gap-2">
-        {categories.map((category) => {
-          const isSelected = selectedCategories.includes(category);
-          return (
-            <button
-              key={category}
-              onClick={() => toggleCategory(category)}
-              className={`px-3 sm:px-4 py-2.5 sm:py-2 rounded-lg text-xs sm:text-sm font-medium transition-all cursor-pointer touch-manipulation active:scale-95 ${
-                isSelected
-                  ? "bg-blue-600 text-white shadow-md hover:bg-blue-700"
-                  : "bg-gray-100 text-gray-700 hover:bg-gray-200 active:bg-gray-300"
-              }`}
-              aria-pressed={isSelected}
-              aria-label={`Filter by ${category}`}
-            >
-              {category.charAt(0).toUpperCase() + category.slice(1)}
-            </button>
-          );
-        })}
-      </div>
-      
-      {selectedCategories.length > 0 && (
-        <div className="mt-3 text-xs sm:text-sm text-gray-600">
-          {selectedCategories.length} categor{selectedCategories.length === 1 ? "y" : "ies"} selected
+        
+        <div className="mb-4">
+          <h4 className="text-sm font-semibold text-gray-900 mb-3">Categories</h4>
+          <div className="flex flex-col gap-2.5">
+            {categories.map((category) => {
+              const isSelected = selectedCategories.includes(category);
+              return (
+                <label
+                  key={category}
+                  className="flex items-center gap-3 px-2 py-2 rounded-lg hover:bg-gray-50 cursor-pointer transition-colors group"
+                >
+                  <input
+                    type="checkbox"
+                    checked={isSelected}
+                    onChange={() => toggleCategory(category)}
+                    className="w-4 h-4 text-blue-600 border-gray-300 rounded  cursor-pointer"
+                    aria-label={`Filter by ${category}`}
+                  />
+                  <span className="text-sm font-medium text-gray-700 group-hover:text-gray-900 flex-1">
+                    {category.charAt(0).toUpperCase() + category.slice(1)}
+                  </span>
+                </label>
+              );
+            })}
+          </div>
         </div>
-      )}
-    </div>
+        
+      
+        {selectedCategories.length > 0 && (
+          <div className="mt-4 pt-4 border-t border-gray-200">
+            <div className="text-xs sm:text-sm text-gray-600">
+              <span className="font-medium">{selectedCategories.length}</span> categor{selectedCategories.length === 1 ? "y" : "ies"} selected
+            </div>
+          </div>
+        )}
+      </div>
+    </>
   );
 }
 

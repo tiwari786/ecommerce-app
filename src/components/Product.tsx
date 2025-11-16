@@ -31,7 +31,7 @@ export default function ProductCard({ product, index = 0 }: productCardProps) {
                     </h3>
 
                     <div className="flex items-center justify-between">
-                        <p className="text-lg font-bold text-gray-900">
+                        <p className="text-base font-bold text-gray-900">
                             ₹ {product.price}
                         </p>
 
