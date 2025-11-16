@@ -4,6 +4,7 @@ import { getCategories, type SortOption } from "../utils/api";
 import { FiX, FiChevronDown } from "react-icons/fi";
 
 const sortOptions: { value: SortOption; label: string }[] = [
+  { value: "default", label: "Default" },
   { value: "price-asc", label: "Price: Low to High" },
   { value: "price-desc", label: "Price: High to Low" },
   { value: "name-asc", label: "Name: A to Z" },
@@ -16,7 +17,7 @@ export default function ProductFilters() {
   const [loading, setLoading] = useState(true);
 
   const selectedCategories = searchParams.get("categories")?.split(",").filter(Boolean) || [];
-  const currentSort = (searchParams.get("sort") as SortOption) || "price-asc";
+  const currentSort = (searchParams.get("sort") as SortOption) || "default";
 
   useEffect(() => {
     getCategories().then((data) => {
@@ -44,7 +45,7 @@ export default function ProductFilters() {
   };
 
   const handleSortChange = (sortOption: SortOption) => {
-    if (sortOption === "price-asc") {
+    if (sortOption === "default") {
       searchParams.delete("sort");
     } else {
       searchParams.set("sort", sortOption);
@@ -63,7 +64,6 @@ export default function ProductFilters() {
   return (
     <div className="mb-4 sm:mb-6 bg-white rounded-xl shadow-sm p-3 sm:p-4">
       <div className="flex flex-row justify-between gap-2 sm:gap-4 mb-3 sm:mb-4">
-        {/* Title and Clear Button Row */}
         <div className="flex w-[60%] items-center gap-2">
           <h3 className="text-base sm:text-lg font-semibold text-gray-900">Filter by Category</h3>
           {selectedCategories.length > 0 && (
@@ -79,7 +79,6 @@ export default function ProductFilters() {
           )}
         </div>
         
-        {/* Sort Dropdown */}
         <div className="flex items-center gap-2">
           <label className="text-xs sm:text-sm font-medium text-gray-700 whitespace-nowrap">
             Sort:
@@ -102,7 +101,6 @@ export default function ProductFilters() {
         </div>
       </div>
 
-      {/* Category Buttons */}
       <div className="flex flex-wrap gap-2">
         {categories.map((category) => {
           const isSelected = selectedCategories.includes(category);

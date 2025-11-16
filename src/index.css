@@ -1,16 +1,6 @@
 @import "tailwindcss";
 
 
-/* @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-.animate-fadeIn {
-  animation: fadeIn 0.3s ease-in-out;
-} */
-
-/* Custom toast position - responsive */
 .Toastify__toast-container {
   top: 10% !important;
   width: 90% !important;
@@ -44,15 +34,3 @@
     padding: 1rem !important;
   }
 }
-/* 
-.Toastify__toast-container--top-right {
-  top: 20% !important;
-}
-
-.Toastify__toast-container--top-left {
-  top: 20% !important;
-}
-
-.Toastify__toast-container--top-center {
-  top: 20% !important;
-} */

@@ -3,7 +3,7 @@ import type { Product } from "../types";
 
 const API_URL = "https://fakestoreapi.com/"
 
-export type SortOption = "price-asc" | "price-desc" | "name-asc" | "name-desc";
+export type SortOption = "default" | "price-asc" | "price-desc" | "name-asc" | "name-desc";
 
 export const getAllProducts = async (): Promise<Product[]> => {
     try {
@@ -71,13 +71,15 @@ export const getProductsByMultipleCategories = async (categories: string[]): Pro
 /**
  * Sort products based on the sort option
  * @param products Array of products to sort
- * @param sortOption Sort option (price-asc, price-desc, name-asc, name-desc)
+ * @param sortOption Sort option (default, price-asc, price-desc, name-asc, name-desc)
  * @returns Sorted array of products
  */
 export const sortProducts = (products: Product[], sortOption: SortOption): Product[] => {
     const sorted = [...products];
     
     switch (sortOption) {
+        case "default":
+            return sorted; // Return products in original order
         case "price-asc":
             return sorted.sort((a, b) => a.price - b.price);
         case "price-desc":

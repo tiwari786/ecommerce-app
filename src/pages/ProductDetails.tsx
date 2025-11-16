@@ -66,7 +66,6 @@ export default function ProductDetails() {
         <article className="bg-white rounded-xl shadow-sm overflow-hidden">
           <section className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 lg:gap-8 p-4 sm:p-6 lg:p-8">
 
-            {/* Product Image */}
             <figure className="bg-gray-50 rounded-lg p-4 sm:p-6 lg:p-8 flex items-center justify-center min-h-[250px] sm:min-h-[300px] md:min-h-[400px]">
               <img
                 src={product.image}
@@ -75,7 +74,6 @@ export default function ProductDetails() {
               />
             </figure>
 
-            {/* Product Details */}
             <div className="flex flex-col">
 
               <span className="inline-block w-fit bg-blue-100 text-blue-800 text-xs font-semibold px-2 sm:px-3 py-1 rounded-full uppercase mb-3 sm:mb-4">
@@ -122,16 +120,6 @@ export default function ProductDetails() {
                     Add to Cart
                   </button>
                 )}
-
-                {/* <div className="flex gap-3 sm:gap-4">
-                  <button className="flex-1 cursor-pointer border-2 border-gray-300 text-gray-700 py-2.5 sm:py-3 rounded-lg font-semibold text-sm sm:text-base hover:border-gray-400 transition-colors">
-                    Buy Now
-                  </button>
-
-                  <button className="flex-1 cursor-pointer border-2 border-gray-300 text-gray-700 py-2.5 sm:py-3 rounded-lg font-semibold text-sm sm:text-base hover:border-gray-400 transition-colors">
-                    Wishlist
-                  </button>
-                </div> */}
 
               </div>
             </div>

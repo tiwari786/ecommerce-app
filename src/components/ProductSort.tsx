@@ -3,6 +3,7 @@ import { FiChevronDown } from "react-icons/fi";
 import type { SortOption } from "../utils/api";
 
 const sortOptions: { value: SortOption; label: string }[] = [
+  { value: "default", label: "Default" },
   { value: "price-asc", label: "Price: Low to High" },
   { value: "price-desc", label: "Price: High to Low" },
   { value: "name-asc", label: "Name: A to Z" },
@@ -11,10 +12,10 @@ const sortOptions: { value: SortOption; label: string }[] = [
 
 export default function ProductSort() {
   const [searchParams, setSearchParams] = useSearchParams();
-  const currentSort = (searchParams.get("sort") as SortOption) || "price-asc";
+  const currentSort = (searchParams.get("sort") as SortOption) || "default";
 
   const handleSortChange = (sortOption: SortOption) => {
-    if (sortOption === "price-asc") {
+    if (sortOption === "default") {
       searchParams.delete("sort");
     } else {
       searchParams.set("sort", sortOption);

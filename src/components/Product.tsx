@@ -14,7 +14,6 @@ export default function ProductCard({ product }: productCardProps) {
                 className="block bg-white rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden border border-gray-200 hover:border-blue-300"
                 aria-label={`View details for ${product.title}`}
             >
-                {/* Product Image */}
                 <div className="relative bg-gray-50 p-6 h-64 flex items-center justify-center overflow-hidden">
                     <img
                         className="w-full h-full object-contain transition-transform duration-300 group-hover:scale-110"
@@ -23,7 +22,6 @@ export default function ProductCard({ product }: productCardProps) {
                     />
                 </div>
 
-                {/* Product Info */}
                 <div className="p-4">
                     <h3 className="text-sm font-medium text-gray-900 mb-2 line-clamp-2 min-h-[2.5rem] group-hover:text-blue-600 transition-colors">
                         {product.title.length > 40

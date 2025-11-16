@@ -10,16 +10,14 @@ export default function Home() {
   const [loading, setLoading] = useState(true)
   const [searchParams] = useSearchParams()
 
-  // Get filters and sort from URL
+
   const categories = searchParams.get("categories")?.split(",").filter(Boolean) || []
-  const sortOption = (searchParams.get("sort") as SortOption) || "price-asc"
+  const sortOption = (searchParams.get("sort") as SortOption) || "default"
 
   useEffect(() => {
     setLoading(true)
 
-    // Fetch products based on selected categories
     getProductsByMultipleCategories(categories).then((data) => {
-      // Sort the products
       const sortedData = sortProducts(data, sortOption)
       setProducts(sortedData)
       setLoading(false)

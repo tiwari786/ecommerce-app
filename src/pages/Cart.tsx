@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { useCartContext } from "../context/CartContext";
-import { FiTrash2 } from "react-icons/fi";
+import { FiTrash2} from "react-icons/fi";
 import { FiArrowLeft } from "react-icons/fi";
 
 export default function CartPage() {
@@ -14,6 +14,10 @@ export default function CartPage() {
   } = useCartContext();
 
   const totalPrice = getTotalPrice();
+
+  const formatPrice = (price: number) => {
+    return price.toFixed(2);
+  };
 
   if (cart.length === 0) {
     return (
@@ -60,55 +64,56 @@ export default function CartPage() {
                   alt={`${item.title} product image`}
                 />
 
-                <div className="flex-1 flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4 min-w-0">
-                  <div className="flex-1 min-w-0">
-                    <h3 className="text-sm sm:text-base font-semibold text-gray-900 line-clamp-2 mb-1">
-                      {item.title}
-                    </h3>
-                    <p className="text-xs sm:text-sm text-gray-600 font-medium mb-2 sm:mb-0">₹ {item.price} per item</p>
-
-                    <div className="flex items-center gap-2 sm:gap-3 mt-2 sm:mt-0">
-                      <button
-                        onClick={() => decreaseQty(item.id)}
-                        disabled={item.quantity === 1}
-                        aria-label="Decrease quantity"
-                        className={`w-7 h-7 sm:w-8 sm:h-8 cursor-pointer flex items-center justify-center rounded-lg text-sm ${item.quantity === 1 ? "opacity-30 bg-gray-300 cursor-not-allowed" : "bg-gray-200 hover:bg-gray-300"}`}>
-                        -
-                      </button>
-
-                      <span className="text-sm sm:text-base font-semibold min-w-6 sm:min-w-8 text-center">
-                        {item.quantity}
-                      </span>
-
-                      <button
-                        onClick={() => increaseQty(item.id)}
-                        aria-label="Increase quantity"
-                        className="w-7 h-7 sm:w-8 sm:h-8 cursor-pointer flex items-center justify-center bg-gray-200 rounded-lg hover:bg-gray-300 text-sm"
-                      >
-                        +
-                      </button>
-
-                      <button
-                        onClick={() => removeFromCart(item.id)}
-                        aria-label="Remove product"
-                        className="ml-2 sm:ml-4 cursor-pointer text-red-500 hover:text-red-600 transition-transform active:scale-95"
-                      >
-                        <FiTrash2 size={16} className="sm:w-5 sm:h-5" />
-                      </button>
-                    </div>
-                  </div>
+                <div className="flex-1 min-w-0">
+                  <h3 className="text-sm sm:text-base font-semibold text-gray-900 line-clamp-2 mb-1">
+                    {item.title}
+                  </h3>
+                  <p className="text-xs sm:text-sm text-gray-600 font-medium">₹ {formatPrice(item.price)}</p>
                 </div>
 
-                {/* Total Price - End */}
-                <div className="flex flex-col items-end shrink-0">
-                  <p className="text-base sm:text-lg font-bold text-gray-900">
-                    ₹ {item.price * item.quantity}
-                  </p>
-                  {item.quantity > 1 && (
-                    <p className="text-xs text-gray-500 mt-0.5">
-                      ₹ {item.price} × {item.quantity}
+                <div>
+                  <div className="flex flex-col items-end shrink-0">
+                    <p className="text-base sm:text-lg font-bold text-gray-900">
+                      ₹ {formatPrice(item.price * item.quantity)}
                     </p>
-                  )}
+                    {item.quantity > 1 && (
+                      <p className="text-xs text-gray-500 mt-0.5">
+                        ₹ {formatPrice(item.price)} × {item.quantity}
+                      </p>
+                    )}
+                  </div>
+  
+                  <div className="flex items-center gap-1 mt-2 sm:gap-1 shrink-0">
+                    <button
+                      onClick={() => decreaseQty(item.id)}
+                      disabled={item.quantity === 1}
+                      aria-label="Decrease quantity"
+                      className={`w-7 h-7 sm:w-8 sm:h-8 cursor-pointer flex items-center justify-center rounded-4xl text-sm ${item.quantity === 1 ? "opacity-30 bg-gray-300 cursor-not-allowed" : "bg-gray-200 hover:bg-gray-300"}`}>
+                      -
+                    </button>
+
+                    <span className="text-sm sm:text-base font-semibold min-w-6 sm:min-w-8 text-center">
+                      {item.quantity}
+                    </span>
+
+                    <button
+                      onClick={() => increaseQty(item.id)}
+                      aria-label="Increase quantity"
+                      className="w-7 h-7 sm:w-8 sm:h-8 cursor-pointer flex items-center justify-center bg-gray-200 rounded-4xl hover:bg-gray-300 text-sm"
+                    >
+                      +
+                    </button>
+
+                    <button
+                      onClick={() => removeFromCart(item.id)}
+                      aria-label="Remove product"
+                      className="ml-2 sm:ml-4 cursor-pointer text-red-500 hover:text-red-600 transition-transform active:scale-95"
+                    >
+                      <FiTrash2 size={16} className="sm:w-5 sm:h-5" />
+                    </button>
+                  </div>
+
+
                 </div>
               </div>
             ))}
@@ -126,7 +131,7 @@ export default function CartPage() {
 
             <div className="flex justify-between mb-3 text-sm sm:text-base">
               <span className="text-gray-700">Subtotal</span>
-              <span className="font-semibold">₹ {totalPrice}</span>
+              <span className="font-semibold">₹ {formatPrice(totalPrice)}</span>
             </div>
 
             <div className="flex justify-between mb-3 text-sm sm:text-base">
@@ -138,7 +143,7 @@ export default function CartPage() {
 
             <div className="flex justify-between text-base sm:text-lg font-bold">
               <span>Total</span>
-              <span>₹ {totalPrice}</span>
+              <span>₹ {formatPrice(totalPrice)}</span>
             </div>
 
             <button className="w-full mt-4 sm:mt-6 bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition-all text-sm sm:text-base">
